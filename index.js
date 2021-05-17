@@ -6,6 +6,7 @@
 
 var http =require('http');
 var url =require('url');
+var StringDecoder= require('string_decoder').StringDecoder;
 
 // This servers should respond to all request with a string
 var server = http.createServer(function(req, res){
@@ -26,16 +27,25 @@ var method = req.method.toLowerCase();
 //Get the headers as an object
 var headers=req.headers;
 
+// Get the payload if there is any
+var decoder= new StringDecoder('utf-8');
+var buffer ='';
 
+req.on('data',function(data){
+  buffer += decoder.write(data);
+});
 
-// send response
-res.end('Hello World \n');
+// This will tell when all the strings are finished decoding
+req.on('end',function(){
+ buffer +=decoder.end();
 
-//Log the request
-console.log("Request received with these headers: ",headers);
+ //Send a response
+ res.end('Hello World \n');
 
+ //Log the request
+ console.log("Request received with This Payload: ", buffer);
 
-
+  });
 });
 
 //start the server, and listen on port 300
