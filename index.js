@@ -23,13 +23,16 @@ var queryStringObject = parseUrl.query;
 //Get http
 var method = req.method.toLowerCase();
 
+//Get the headers as an object
+var headers=req.headers;
+
 
 
 // send response
 res.end('Hello World \n');
 
 //Log the request
-console.log("Request received on Path: "+ trimmedPath + "with method: "+ method+ "with these parameters",queryStringObject);
+console.log("Request received with these headers: ",headers);
 
 
 
