@@ -17,10 +17,14 @@ var parseUrl= url.parse(req.url,true);
 var path=parseUrl.pathname;
 var trimmedPath= path.replace(/^\/+|\/+$/g, '');
 
+//Get http
+var method = req.method.toLowerCase();
+
+// send response
 res.end('Hello World \n');
 
 //Log the request
-console.log("Request received on Path: "+ trimmedPath);
+console.log("Request received on Path: "+ trimmedPath + "with method: "+ method);
 
 
 
